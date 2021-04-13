@@ -1,7 +1,6 @@
 const path = require('path')
 
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const DuplicatePackageCheckerPlugin = require('@cerner/duplicate-package-checker-webpack-plugin')
 
 module.exports = [
   {
@@ -17,15 +16,7 @@ module.exports = [
       libraryTarget: 'umd',
     },
     mode: 'production',
-    devtool: 'source-map',
     plugins: [
-      new BundleAnalyzerPlugin({
-        openAnalyzer: false,
-        analyzerMode: 'static',
-        reportFilename: 'size_report.html',
-        defaultSizes: 'gzip',
-        excludeAssets: 'internal-apis\\.umd\\.min\\.js',
-      }),
       new DuplicatePackageCheckerPlugin({
         strict: true,
       }),

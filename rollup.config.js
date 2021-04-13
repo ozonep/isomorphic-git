@@ -26,19 +26,6 @@ const ecmaConfig = (input, output) => ({
   ],
 })
 
-// Legacy CommonJS2 modules
-const nodeConfig = (input, output) => ({
-  input: `src/${input}`,
-  external: [...external],
-  output: [
-    {
-      format: 'cjs',
-      file: `${output}`,
-      exports: 'named',
-    },
-  ],
-})
-
 // Script tags that "export" a global var for those browser environments that
 // still don't support `import` (Workers and ServiceWorkers)
 const umdConfig = (input, output, name) => ({
@@ -57,7 +44,7 @@ const template = umd =>
   JSON.stringify(
     {
       type: 'module',
-      main: 'index.cjs',
+      main: 'index.js',
       module: 'index.js',
       typings: 'index.d.ts',
       unpkg: umd ? 'index.umd.js' : undefined,
@@ -74,7 +61,6 @@ const pkgify = (input, output, name) => {
   )
   return [
     ecmaConfig(`${input}/index.js`, `${output}/index.js`),
-    nodeConfig(`${input}/index.js`, `${output}/index.cjs`),
     ...(name
       ? [umdConfig(`${input}/index.js`, `${output}/index.umd.js`, name)]
       : []),
@@ -83,9 +69,6 @@ const pkgify = (input, output, name) => {
 
 export default [
   ecmaConfig('index.js', 'index.js'),
-  nodeConfig('index.js', 'index.cjs'),
   ecmaConfig('internal-apis.js', 'internal-apis.js'),
-  nodeConfig('internal-apis.js', 'internal-apis.cjs'),
-  ...pkgify('http/node', 'http/node'),
-  ...pkgify('http/web', 'http/web', 'GitHttp'),
+  ...pkgify('http', 'http', 'GitHttp'),
 ]
