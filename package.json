@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "nps",
-    "format": "nps format",
+    "format": "eslint --fix .",
     "build": "npm run build.rollup && npm run build.typings && npm run build.webpack && npm run build.treeshake",
     "build.rollup": "rollup -c --no-treeshake",
     "build.typings": "tsc -p declaration.tsconfig.json && cp index.d.ts index.umd.min.d.ts",

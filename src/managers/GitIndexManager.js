@@ -53,7 +53,7 @@ export class GitIndexManager {
     const filepath = `${gitdir}/index`
     if (lock === null) lock = new AsyncLock({ maxPending: Infinity })
     let result
-    await lock.acquire(filepath, async function() {
+    await lock.acquire(filepath, async function () {
       // Acquire a file lock while we're reading the index
       // to make sure other processes aren't writing to it
       // simultaneously, which could result in a corrupted index.

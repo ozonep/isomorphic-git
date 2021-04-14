@@ -1,5 +1,5 @@
 // This is straight from parse_unit_factor in config.c of canonical git
-const num = val => {
+const num = (val) => {
   val = val.toLowerCase()
   let n = parseInt(val)
   if (val.endsWith('k')) n *= 1024
@@ -9,7 +9,7 @@ const num = val => {
 }
 
 // This is straight from git_parse_maybe_bool_text in config.c of canonical git
-const bool = val => {
+const bool = (val) => {
   val = val.trim().toLowerCase()
   if (val === 'true' || val === 'yes' || val === 'on') return true
   if (val === 'false' || val === 'no' || val === 'off') return false
@@ -50,7 +50,7 @@ const VARIABLE_NAME_REGEX = /^[A-Za-z][A-Za-z-]*$/
 
 const VARIABLE_VALUE_COMMENT_REGEX = /^(.*?)( *[#;].*)$/
 
-const extractSectionLine = line => {
+const extractSectionLine = (line) => {
   const matches = SECTION_LINE_REGEX.exec(line)
   if (matches != null) {
     const [section, subsection] = matches.slice(1)
@@ -59,7 +59,7 @@ const extractSectionLine = line => {
   return null
 }
 
-const extractVariableLine = line => {
+const extractVariableLine = (line) => {
   const matches = VARIABLE_LINE_REGEX.exec(line)
   if (matches != null) {
     const [name, rawValue = 'true'] = matches.slice(1)
@@ -70,7 +70,7 @@ const extractVariableLine = line => {
   return null
 }
 
-const removeComments = rawValue => {
+const removeComments = (rawValue) => {
   const commentMatches = VARIABLE_VALUE_COMMENT_REGEX.exec(rawValue)
   if (commentMatches == null) {
     return rawValue
@@ -86,12 +86,12 @@ const removeComments = rawValue => {
   return valueWithoutComment
 }
 
-const hasOddNumberOfQuotes = text => {
+const hasOddNumberOfQuotes = (text) => {
   const numberOfQuotes = (text.match(/(?:^|[^\\])"/g) || []).length
   return numberOfQuotes % 2 !== 0
 }
 
-const removeQuotes = text => {
+const removeQuotes = (text) => {
   return text.split('').reduce((newText, c, idx, text) => {
     const isQuote = c === '"' && text[idx - 1] !== '\\'
     const isEscapeForQuote = c === '\\' && text[idx + 1] === '"'
@@ -102,13 +102,13 @@ const removeQuotes = text => {
   }, '')
 }
 
-const lower = text => {
+const lower = (text) => {
   return text != null ? text.toLowerCase() : null
 }
 
 const getPath = (section, subsection, name) => {
   return [lower(section), subsection, lower(name)]
-    .filter(a => a != null)
+    .filter((a) => a != null)
     .join('.')
 }
 
@@ -124,7 +124,7 @@ export class GitConfig {
   constructor(text) {
     let section = null
     let subsection = null
-    this.parsedConfig = text.split('\n').map(line => {
+    this.parsedConfig = text.split('\n').map((line) => {
       let name = null
       let value = null
 
@@ -152,7 +152,7 @@ export class GitConfig {
 
   async get(path, getall = false) {
     const allValues = this.parsedConfig
-      .filter(config => config.path === path.toLowerCase())
+      .filter((config) => config.path === path.toLowerCase())
       .map(({ section, name, value }) => {
         const fn = schema[section] && schema[section][name]
         return fn ? fn(value) : value
@@ -166,13 +166,13 @@ export class GitConfig {
 
   async getSubsections(section) {
     return this.parsedConfig
-      .filter(config => config.section === section && config.isSection)
-      .map(config => config.subsection)
+      .filter((config) => config.section === section && config.isSection)
+      .map((config) => config.subsection)
   }
 
   async deleteSection(section, subsection) {
     this.parsedConfig = this.parsedConfig.filter(
-      config =>
+      (config) =>
         !(config.section === section && config.subsection === subsection)
     )
   }
@@ -184,7 +184,7 @@ export class GitConfig {
   async set(path, value, append = false) {
     const configIndex = findLastIndex(
       this.parsedConfig,
-      config => config.path === path.toLowerCase()
+      (config) => config.path === path.toLowerCase()
     )
     if (value == null) {
       if (configIndex !== -1) {
@@ -203,13 +203,9 @@ export class GitConfig {
           this.parsedConfig[configIndex] = modifiedConfig
         }
       } else {
-        const sectionPath = path
-          .split('.')
-          .slice(0, -1)
-          .join('.')
-          .toLowerCase()
+        const sectionPath = path.split('.').slice(0, -1).join('.').toLowerCase()
         const sectionIndex = this.parsedConfig.findIndex(
-          config => config.path === sectionPath
+          (config) => config.path === sectionPath
         )
         const [section, subsection] = sectionPath.split('.')
         const name = path.split('.').pop()

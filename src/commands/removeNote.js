@@ -59,7 +59,7 @@ export async function _removeNote({
   let tree = result.tree
 
   // Remove the note blob entry from the tree
-  tree = tree.filter(entry => entry.path !== oid)
+  tree = tree.filter((entry) => entry.path !== oid)
 
   // Create the new note tree
   const treeOid = await _writeTree({

@@ -19,7 +19,7 @@ export function splitLines(input) {
   const output = new FIFO()
   let tmp = ''
   ;(async () => {
-    await forAwait(input, chunk => {
+    await forAwait(input, (chunk) => {
       chunk = chunk.toString('utf8')
       tmp += chunk
       while (true) {

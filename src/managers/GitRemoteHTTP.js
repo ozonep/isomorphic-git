@@ -32,7 +32,7 @@ const updateHeaders = (headers, auth) => {
  *
  * @returns {{ preview: string, response: string, data: Buffer }}
  */
-const stringifyBody = async res => {
+const stringifyBody = async (res) => {
   try {
     // Some services provide a meaningful error message in the body of 403s like "token lacks the scopes necessary to perform this action"
     const data = Buffer.from(await collect(res.body))

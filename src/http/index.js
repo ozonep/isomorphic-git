@@ -6,7 +6,7 @@ import { fromStream } from '../utils/fromStream'
 /**
  * Perform fetch with retries
  */
- async function fetchWithRetry(url, options, n = 1) {
+async function fetchWithRetry(url, options, n = 1) {
   try {
     return await fetch(url, options)
   } catch (err) {

@@ -2,6 +2,7 @@
 /docs
 /node_modules
 /website
+/dist
 
 # Build artifacts
 /__tests__/__examples__

@@ -11,7 +11,7 @@ export async function parseUploadPackResponse(stream) {
   let done = false
   return new Promise((resolve, reject) => {
     // Parse the response
-    forAwait(packetlines, data => {
+    forAwait(packetlines, (data) => {
       const line = data.toString('utf8').trim()
       if (line.startsWith('shallow')) {
         const oid = line.slice(-41).trim()

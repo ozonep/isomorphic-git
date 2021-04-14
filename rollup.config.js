@@ -40,7 +40,7 @@ const umdConfig = (input, output, name) => ({
   ],
 })
 
-const template = umd =>
+const template = (umd) =>
   JSON.stringify(
     {
       type: 'module',

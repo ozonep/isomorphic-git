@@ -3,7 +3,7 @@ export function indent(str) {
     str
       .trim()
       .split('\n')
-      .map(x => ' ' + x)
+      .map((x) => ' ' + x)
       .join('\n') + '\n'
   )
 }

@@ -258,7 +258,7 @@ export async function _push({
   const { packfile, progress } = await GitSideBand.demux(res.body)
   if (onMessage) {
     const lines = splitLines(progress)
-    forAwait(lines, async line => {
+    forAwait(lines, async (line) => {
       await onMessage(line)
     })
   }
@@ -281,7 +281,7 @@ export async function _push({
       await GitRefManager.writeRef({ fs, gitdir, ref, value: oid })
     }
   }
-  if (result.ok && Object.values(result.refs).every(result => result.ok)) {
+  if (result.ok && Object.values(result.refs).every((result) => result.ok)) {
     return result
   } else {
     const prettyDetails = Object.entries(result.refs)

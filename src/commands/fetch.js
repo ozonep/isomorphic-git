@@ -239,10 +239,10 @@ export async function _fetch({
         const hasParents = await Promise.all(
           commit
             .headers()
-            .parent.map(oid => hasObject({ fs, cache, gitdir, oid }))
+            .parent.map((oid) => hasObject({ fs, cache, gitdir, oid }))
         )
         const haveAllParents =
-          hasParents.length === 0 || hasParents.every(has => has)
+          hasParents.length === 0 || hasParents.every((has) => has)
         if (!haveAllParents) {
           oids.add(oid)
         }
@@ -328,7 +328,7 @@ export async function _fetch({
 
   if (onProgress || onMessage) {
     const lines = splitLines(response.progress)
-    forAwait(lines, async line => {
+    forAwait(lines, async (line) => {
       if (onMessage) await onMessage(line)
       if (onProgress) {
         const matches = line.match(/([^:]*).*\((\d+?)\/(\d+?)\)/)
@@ -365,7 +365,7 @@ export async function _fetch({
     res.packfile = `objects/pack/pack-${packfileSha}.pack`
     const fullpath = join(gitdir, res.packfile)
     await fs.write(fullpath, packfile)
-    const getExternalRefDelta = oid => readObject({ fs, cache, gitdir, oid })
+    const getExternalRefDelta = (oid) => readObject({ fs, cache, gitdir, oid })
     const idx = await GitPackIndex.fromPack({
       pack: packfile,
       getExternalRefDelta,

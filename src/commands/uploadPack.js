@@ -26,7 +26,7 @@ export async function uploadPack({
         gitdir,
         filepath: 'refs',
       })
-      keys = keys.map(ref => `refs/${ref}`)
+      keys = keys.map((ref) => `refs/${ref}`)
       const refs = {}
       keys.unshift('HEAD') // HEAD must be the first in the list
       for (const key of keys) {

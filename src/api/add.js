@@ -41,9 +41,12 @@ export async function add({
     assertParameter('filepath', filepath)
 
     const fs = new FileSystem(_fs)
-    await GitIndexManager.acquire({ fs, gitdir, cache }, async function(index) {
-      await addToIndex({ dir, gitdir, fs, filepath, index })
-    })
+    await GitIndexManager.acquire(
+      { fs, gitdir, cache },
+      async function (index) {
+        await addToIndex({ dir, gitdir, fs, filepath, index })
+      }
+    )
   } catch (err) {
     err.caller = 'git.add'
     throw err
@@ -63,7 +66,7 @@ async function addToIndex({ dir, gitdir, fs, filepath, index }) {
   if (!stats) throw new NotFoundError(filepath)
   if (stats.isDirectory()) {
     const children = await fs.readdir(join(dir, filepath))
-    const promises = children.map(child =>
+    const promises = children.map((child) =>
       addToIndex({ dir, gitdir, fs, filepath: join(filepath, child), index })
     )
     await Promise.all(promises)

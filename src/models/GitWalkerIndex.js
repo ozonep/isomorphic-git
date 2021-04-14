@@ -8,7 +8,7 @@ export class GitWalkerIndex {
   constructor({ fs, gitdir, cache }) {
     this.treePromise = GitIndexManager.acquire(
       { fs, gitdir, cache },
-      async function(index) {
+      async function (index) {
         return flatFileListToDirectoryStructure(index.entries)
       }
     )
@@ -53,7 +53,7 @@ export class GitWalkerIndex {
     if (inode.type !== 'tree') {
       throw new Error(`ENOTDIR: not a directory, scandir '${filepath}'`)
     }
-    const names = inode.children.map(inode => inode.fullpath)
+    const names = inode.children.map((inode) => inode.fullpath)
     names.sort(compareStrings)
     return names
   }

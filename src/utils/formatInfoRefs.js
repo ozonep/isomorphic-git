@@ -18,7 +18,7 @@ export function formatInfoRefs(remote, prefix, symrefs, peelTags) {
         const _key = key.replace('^{}', '')
         // Peeled tags are almost always listed immediately after the original tag
         const last = refs[refs.length - 1]
-        const r = last.ref === _key ? last : refs.find(x => x.ref === _key)
+        const r = last.ref === _key ? last : refs.find((x) => x.ref === _key)
         if (r === undefined) {
           throw new Error('I did not expect this to happen')
         }

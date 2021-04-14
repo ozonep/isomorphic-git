@@ -154,7 +154,7 @@ export class FileSystem {
   async readdirDeep(dir) {
     const subdirs = await this._readdir(dir)
     const files = await Promise.all(
-      subdirs.map(async subdir => {
+      subdirs.map(async (subdir) => {
         const res = dir + '/' + subdir
         return (await this._stat(res)).isDirectory()
           ? this.readdirDeep(res)

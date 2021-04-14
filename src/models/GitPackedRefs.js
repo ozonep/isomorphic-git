@@ -7,7 +7,7 @@ export class GitPackedRefs {
       this.parsedConfig = text
         .trim()
         .split('\n')
-        .map(line => {
+        .map((line) => {
           if (/^\s*#/.test(line)) {
             return { line, comment: true }
           }
@@ -36,7 +36,7 @@ export class GitPackedRefs {
   }
 
   delete(ref) {
-    this.parsedConfig = this.parsedConfig.filter(entry => entry.ref !== ref)
+    this.parsedConfig = this.parsedConfig.filter((entry) => entry.ref !== ref)
     this.refs.delete(ref)
   }
 

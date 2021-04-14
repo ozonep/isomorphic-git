@@ -35,7 +35,7 @@ export async function _listNotes({ fs, cache, gitdir, ref }) {
   })
 
   // Format the tree entries
-  const notes = result.tree.map(entry => ({
+  const notes = result.tree.map((entry) => ({
     target: entry.path,
     note: entry.oid,
   }))

@@ -83,7 +83,7 @@ export class GitWalkerRepo {
     for (const entry of tree) {
       map.set(join(filepath, entry.path), entry)
     }
-    return tree.entries().map(entry => join(filepath, entry.path))
+    return tree.entries().map((entry) => join(filepath, entry.path))
   }
 
   async type(entry) {

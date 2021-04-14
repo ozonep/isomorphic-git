@@ -39,36 +39,36 @@ export async function _walk({
   // The default iterate function walks all children concurrently
   iterate = (walk, children) => Promise.all([...children].map(walk)),
 }) {
-  const walkers = trees.map(proxy =>
+  const walkers = trees.map((proxy) =>
     proxy[GitWalkSymbol]({ fs, dir, gitdir, cache })
   )
 
   const root = new Array(walkers.length).fill('.')
   const range = arrayRange(0, walkers.length)
-  const unionWalkerFromReaddir = async entries => {
-    range.map(i => {
+  const unionWalkerFromReaddir = async (entries) => {
+    range.map((i) => {
       entries[i] = entries[i] && new walkers[i].ConstructEntry(entries[i])
     })
     const subdirs = await Promise.all(
-      range.map(i => (entries[i] ? walkers[i].readdir(entries[i]) : []))
+      range.map((i) => (entries[i] ? walkers[i].readdir(entries[i]) : []))
     )
     // Now process child directories
     const iterators = subdirs
-      .map(array => (array === null ? [] : array))
-      .map(array => array[Symbol.iterator]())
+      .map((array) => (array === null ? [] : array))
+      .map((array) => array[Symbol.iterator]())
     return {
       entries,
       children: unionOfIterators(iterators),
     }
   }
 
-  const walk = async root => {
+  const walk = async (root) => {
     const { entries, children } = await unionWalkerFromReaddir(root)
-    const fullpath = entries.find(entry => entry && entry._fullpath)._fullpath
+    const fullpath = entries.find((entry) => entry && entry._fullpath)._fullpath
     const parent = await map(fullpath, entries)
     if (parent !== null) {
       let walkedChildren = await iterate(walk, children)
-      walkedChildren = walkedChildren.filter(x => x !== undefined)
+      walkedChildren = walkedChildren.filter((x) => x !== undefined)
       return reduce(parent, walkedChildren)
     }
   }

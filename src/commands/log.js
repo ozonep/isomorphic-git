@@ -53,7 +53,7 @@ export async function _log({ fs, cache, gitdir, ref, depth, since }) {
       // Note: for the case of a commit with no parents, it will concat an empty array, having no net effect.
       for (const oid of commit.commit.parent) {
         const commit = await _readCommit({ fs, cache, gitdir, oid })
-        if (!tips.map(commit => commit.oid).includes(commit.oid)) {
+        if (!tips.map((commit) => commit.oid).includes(commit.oid)) {
           tips.push(commit)
         }
       }

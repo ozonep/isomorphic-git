@@ -42,7 +42,7 @@ export class FIFO {
         'You cannot call read until the previous call to read has returned!'
       )
     }
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this._waiting = resolve
     })
   }

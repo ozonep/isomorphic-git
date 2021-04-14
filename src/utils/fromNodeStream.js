@@ -18,14 +18,14 @@ export function fromNodeStream(stream) {
   let ended = false
   const queue = []
   let defer = {}
-  stream.on('data', chunk => {
+  stream.on('data', (chunk) => {
     queue.push(chunk)
     if (defer.resolve) {
       defer.resolve({ value: queue.shift(), done: false })
       defer = {}
     }
   })
-  stream.on('error', err => {
+  stream.on('error', (err) => {
     if (defer.reject) {
       defer.reject(err)
       defer = {}

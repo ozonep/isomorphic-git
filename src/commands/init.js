@@ -30,7 +30,7 @@ export async function _init({
     'refs/heads',
     'refs/tags',
   ]
-  folders = folders.map(dir => gitdir + '/' + dir)
+  folders = folders.map((dir) => gitdir + '/' + dir)
   for (const folder of folders) {
     await fs.mkdir(folder)
   }

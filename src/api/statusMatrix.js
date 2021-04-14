@@ -172,7 +172,7 @@ export async function statusMatrix({
       dir,
       gitdir,
       trees: [TREE({ ref }), WORKDIR(), STAGE()],
-      map: async function(filepath, [head, workdir, stage]) {
+      map: async function (filepath, [head, workdir, stage]) {
         // Ignore ignored files, but only if they are not already tracked.
         if (!head && !stage && workdir) {
           if (
@@ -186,7 +186,7 @@ export async function statusMatrix({
           }
         }
         // match against base paths
-        if (!filepaths.some(base => worthWalking(filepath, base))) {
+        if (!filepaths.some((base) => worthWalking(filepath, base))) {
           return null
         }
         // Late filter against file names
@@ -218,7 +218,7 @@ export async function statusMatrix({
           workdirOid = await workdir.oid()
         }
         const entry = [undefined, headOid, workdirOid, stageOid]
-        const result = entry.map(value => entry.indexOf(value))
+        const result = entry.map((value) => entry.indexOf(value))
         result.shift() // remove leading undefined entry
         return [filepath, ...result]
       },

@@ -23,7 +23,7 @@ export async function _readObject({
 }) {
   // Curry the current read method so that the packfile un-deltification
   // process can acquire external ref-deltas.
-  const getExternalRefDelta = oid => _readObject({ fs, cache, gitdir, oid })
+  const getExternalRefDelta = (oid) => _readObject({ fs, cache, gitdir, oid })
 
   let result
   // Empty tree - hard-coded so we can use it as a shorthand.

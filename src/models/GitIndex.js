@@ -185,7 +185,7 @@ export class GitIndex {
 
   render() {
     return this.entries
-      .map(entry => `${entry.mode.toString(8)} ${entry.oid}    ${entry.path}`)
+      .map((entry) => `${entry.mode.toString(8)} ${entry.oid}    ${entry.path}`)
       .join('\n')
   }
 
@@ -196,7 +196,7 @@ export class GitIndex {
     writer.writeUInt32BE(2)
     writer.writeUInt32BE(this.entries.length)
     const body = Buffer.concat(
-      this.entries.map(entry => {
+      this.entries.map((entry) => {
         const bpath = Buffer.from(entry.path)
         // the fixed length + the filename + at least one null char => align by 8
         const length = Math.ceil((62 + bpath.length + 1) / 8) * 8

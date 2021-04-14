@@ -25,7 +25,7 @@ export async function _indexPack({
   try {
     filepath = join(dir, filepath)
     const pack = await fs.read(filepath)
-    const getExternalRefDelta = oid => readObject({ fs, cache, gitdir, oid })
+    const getExternalRefDelta = (oid) => readObject({ fs, cache, gitdir, oid })
     const idx = await GitPackIndex.fromPack({
       pack,
       getExternalRefDelta,

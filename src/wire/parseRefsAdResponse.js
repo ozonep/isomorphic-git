@@ -31,7 +31,7 @@ export async function parseRefsAdResponse(stream, { service }) {
     return parseCapabilitiesV2(read)
   }
   const [firstRef, capabilitiesLine] = splitAndAssert(lineTwo, '\x00', '\\x00')
-  capabilitiesLine.split(' ').map(x => capabilities.add(x))
+  capabilitiesLine.split(' ').map((x) => capabilities.add(x))
   const [ref, name] = splitAndAssert(firstRef, ' ', ' ')
   refs.set(name, ref)
   while (true) {

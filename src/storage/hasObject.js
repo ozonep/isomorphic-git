@@ -11,7 +11,7 @@ export async function hasObject({
 }) {
   // Curry the current read method so that the packfile un-deltification
   // process can acquire external ref-deltas.
-  const getExternalRefDelta = oid => readObject({ fs, cache, gitdir, oid })
+  const getExternalRefDelta = (oid) => readObject({ fs, cache, gitdir, oid })
 
   // Look for it in the loose object directory.
   let result = await hasObjectLoose({ fs, gitdir, oid })

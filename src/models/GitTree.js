@@ -101,7 +101,9 @@ export class GitTree {
 
   render() {
     return this._entries
-      .map(entry => `${entry.mode} ${entry.type} ${entry.oid}    ${entry.path}`)
+      .map(
+        (entry) => `${entry.mode} ${entry.type} ${entry.oid}    ${entry.path}`
+      )
       .join('\n')
   }
 
@@ -110,7 +112,7 @@ export class GitTree {
     const entries = [...this._entries]
     entries.sort(compareTreeEntryPath)
     return Buffer.concat(
-      entries.map(entry => {
+      entries.map((entry) => {
         const mode = Buffer.from(entry.mode.replace(/^0/, ''))
         const space = Buffer.from(' ')
         const path = Buffer.from(entry.path, 'utf8')

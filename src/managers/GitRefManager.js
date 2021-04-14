@@ -10,7 +10,7 @@ import { join } from '../utils/join.js'
 import { GitConfigManager } from './GitConfigManager'
 
 // @see https://git-scm.com/docs/git-rev-parse.html#_specifying_revisions
-const refpaths = ref => [
+const refpaths = (ref) => [
   `${ref}`,
   `refs/${ref}`,
   `refs/tags/${ref}`,
@@ -61,7 +61,7 @@ export class GitRefManager {
       await GitRefManager.deleteRefs({
         fs,
         gitdir,
-        refs: tags.map(tag => `refs/tags/${tag}`),
+        refs: tags.map((tag) => `refs/tags/${tag}`),
       })
     }
     // Add all tags if the fetch tags argument is true.
@@ -101,7 +101,7 @@ export class GitRefManager {
             gitdir,
             filepath,
           })
-        ).map(file => `${filepath}/${file}`)
+        ).map((file) => `${filepath}/${file}`)
         for (const ref of refs) {
           if (!actualRefsToWrite.has(ref)) {
             pruned.push(ref)
@@ -152,7 +152,7 @@ export class GitRefManager {
 
   static async deleteRefs({ fs, gitdir, refs }) {
     // Delete regular ref
-    await Promise.all(refs.map(ref => fs.rm(join(gitdir, ref))))
+    await Promise.all(refs.map((ref) => fs.rm(join(gitdir, ref))))
     // Delete any packed ref
     let text = await fs.read(`${gitdir}/packed-refs`, { encoding: 'utf8' })
     const packed = GitPackedRefs.from(text)
@@ -196,7 +196,7 @@ export class GitRefManager {
     // We need to alternate between the file system and the packed-refs
     const packedMap = await GitRefManager.packedRefs({ fs, gitdir })
     // Look in all the proper paths, in this order
-    const allpaths = refpaths(ref).filter(p => !GIT_FILES.includes(p)) // exclude git system files (#709)
+    const allpaths = refpaths(ref).filter((p) => !GIT_FILES.includes(p)) // exclude git system files (#709)
 
     for (const ref of allpaths) {
       sha =
@@ -291,7 +291,7 @@ export class GitRefManager {
     let files = null
     try {
       files = await fs.readdirDeep(`${gitdir}/${filepath}`)
-      files = files.map(x => x.replace(`${gitdir}/${filepath}/`, ''))
+      files = files.map((x) => x.replace(`${gitdir}/${filepath}/`, ''))
     } catch (err) {
       files = []
     }
@@ -330,6 +330,6 @@ export class GitRefManager {
       gitdir,
       filepath: `refs/tags`,
     })
-    return tags.filter(x => !x.endsWith('^{}'))
+    return tags.filter((x) => !x.endsWith('^{}'))
   }
 }

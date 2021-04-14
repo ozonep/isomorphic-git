@@ -1,6 +1,7 @@
-const path = require('path');
-const TerserPlugin = require("terser-webpack-plugin");
+const path = require('path')
+
 const DuplicatePackageCheckerPlugin = require('@cerner/duplicate-package-checker-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = [
   {
@@ -18,14 +19,14 @@ module.exports = [
     mode: 'production',
     optimization: {
       minimize: true,
-      minimizer: [new TerserPlugin({ parallel: true })]
+      minimizer: [new TerserPlugin({ parallel: true })],
     },
     resolve: {
       extensions: ['.js'],
       fallback: {
-          "path": require.resolve("path-browserify")
-      }
-  },
+        path: require.resolve('path-browserify'),
+      },
+    },
 
     plugins: [
       new DuplicatePackageCheckerPlugin({

@@ -1,7 +1,7 @@
 export async function collect(iterable) {
   let size = 0
   const buffers = []
-  for await (let val of iterable) {
+  for await (const val of iterable) {
     buffers.push(val)
     size += val.byteLength
   }

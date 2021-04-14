@@ -50,7 +50,7 @@ export class GitWalkerFs {
     const { fs, dir } = this
     const names = await fs.readdir(join(dir, filepath))
     if (names === null) return null
-    return names.map(name => join(filepath, name))
+    return names.map((name) => join(filepath, name))
   }
 
   async type(entry) {
@@ -115,32 +115,33 @@ export class GitWalkerFs {
       const { fs, gitdir, cache } = this
       let oid
       // See if we can use the SHA1 hash in the index.
-      await GitIndexManager.acquire({ fs, gitdir, cache }, async function(
-        index
-      ) {
-        const stage = index.entriesMap.get(entry._fullpath)
-        const stats = await entry.stat()
-        if (!stage || compareStats(stats, stage)) {
-          const content = await entry.content()
-          if (content === undefined) {
-            oid = undefined
-          } else {
-            oid = await shasum(
-              GitObject.wrap({ type: 'blob', object: await entry.content() })
-            )
-            if (stage && oid === stage.oid) {
-              index.insert({
-                filepath: entry._fullpath,
-                stats,
-                oid: oid,
-              })
+      await GitIndexManager.acquire(
+        { fs, gitdir, cache },
+        async function (index) {
+          const stage = index.entriesMap.get(entry._fullpath)
+          const stats = await entry.stat()
+          if (!stage || compareStats(stats, stage)) {
+            const content = await entry.content()
+            if (content === undefined) {
+              oid = undefined
+            } else {
+              oid = await shasum(
+                GitObject.wrap({ type: 'blob', object: await entry.content() })
+              )
+              if (stage && oid === stage.oid) {
+                index.insert({
+                  filepath: entry._fullpath,
+                  stats,
+                  oid: oid,
+                })
+              }
             }
+          } else {
+            // Use the index SHA1 rather than compute it
+            oid = stage.oid
           }
-        } else {
-          // Use the index SHA1 rather than compute it
-          oid = stage.oid
         }
-      })
+      )
       entry._oid = oid
     }
     return entry._oid

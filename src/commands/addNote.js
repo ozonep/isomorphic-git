@@ -68,7 +68,7 @@ export async function _addNote({
 
   // Handle the case where a note already exists
   if (force) {
-    tree = tree.filter(entry => entry.path !== oid)
+    tree = tree.filter((entry) => entry.path !== oid)
   } else {
     for (const entry of tree) {
       if (entry.path === oid) {
