@@ -32,7 +32,7 @@ const umdConfig = (input, output, name) => ({
   input: `src/${input}`,
   output: [
     {
-      format: 'umd',
+      format: 'iife',
       file: `${output}`,
       name,
       exports: 'named',

@@ -4,6 +4,7 @@
   "compilerOptions": {
     "types": [],
     "strictNullChecks": true,
+    "removeComments": true,
     "allowJs": true,
     "declaration": true,
     "noEmit": false,
