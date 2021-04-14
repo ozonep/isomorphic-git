@@ -1,5 +1,3 @@
-import pify from 'pify'
-
 import { compareStrings } from '../utils/compareStrings.js'
 import { dirname } from '../utils/dirname.js'
 
@@ -22,17 +20,6 @@ export class FileSystem {
       this._readdir = fs.promises.readdir.bind(fs.promises)
       this._readlink = fs.promises.readlink.bind(fs.promises)
       this._symlink = fs.promises.symlink.bind(fs.promises)
-    } else {
-      this._readFile = pify(fs.readFile.bind(fs))
-      this._writeFile = pify(fs.writeFile.bind(fs))
-      this._mkdir = pify(fs.mkdir.bind(fs))
-      this._rmdir = pify(fs.rmdir.bind(fs))
-      this._unlink = pify(fs.unlink.bind(fs))
-      this._stat = pify(fs.stat.bind(fs))
-      this._lstat = pify(fs.lstat.bind(fs))
-      this._readdir = pify(fs.readdir.bind(fs))
-      this._readlink = pify(fs.readlink.bind(fs))
-      this._symlink = pify(fs.symlink.bind(fs))
     }
     this._original_unwrapped_fs = fs
   }
