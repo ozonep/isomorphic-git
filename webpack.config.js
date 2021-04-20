@@ -34,6 +34,7 @@ module.exports = [
         strict: true,
       }),
       new ProvidePlugin({
+        process: 'process/browser',
         Buffer: ['buffer-lite']
       })
     ],

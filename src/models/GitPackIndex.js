@@ -1,4 +1,4 @@
-import crc32 from 'crc-32'
+import {CRC} from './crc';
 
 import { InternalError } from '../errors/InternalError.js'
 import { GitObject } from '../models/GitObject'
@@ -155,7 +155,7 @@ export class GitPackIndex {
       const end =
         i + 1 === offsetArray.length ? pack.byteLength - 20 : offsetArray[i + 1]
       const o = offsetToObject[start]
-      const crc = crc32.buf(pack.slice(start, end)) >>> 0
+      const crc = new CRC().update(pack.slice(start, end)).digest('raw');
       o.end = end
       o.crc = crc
     }
