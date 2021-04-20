@@ -6,11 +6,9 @@ import pkg from './package.json'
 const external = [
   'fs',
   'path',
+  'buffer',
   'crypto',
   'stream',
-  'crc/lib/crc32.js',
-  'sha.js/sha1',
-  'sha.js/sha1.js',
   ...Object.keys(pkg.dependencies),
 ]
 
@@ -32,7 +30,7 @@ const umdConfig = (input, output, name) => ({
   input: `src/${input}`,
   output: [
     {
-      format: 'iife',
+      format: 'umd',
       file: `${output}`,
       name,
       exports: 'named',

@@ -12,7 +12,7 @@ module.exports = [
       'internal-apis': './src/internal-apis.js',
     },
     output: {
-      path: path.resolve(__dirname),
+      path: path.resolve(__dirname, 'dist'),
       filename: '[name].umd.min.js',
       library: 'git',
       libraryTarget: 'umd',
