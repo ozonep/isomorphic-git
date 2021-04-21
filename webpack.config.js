@@ -10,6 +10,7 @@ module.exports = [
     entry: {
       index: './src/index.js',
       'internal-apis': './src/internal-apis.js',
+      'http': './src/http/index.js',
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
