@@ -115,9 +115,9 @@ export class CRC {
    */
   digest(type) {
     const value = this.value < 0 ? 0x1_0000_0000 + this.value : this.value
-    if (type == 'raw') {
+    if (type === 'raw') {
       return value
-    } else if (type == 'hex' || type == undefined) {
+    } else if (type === 'hex') {
       return value.toString(16)
     } else {
       throw new TypeError(`cannot digest in form ${type}`)
