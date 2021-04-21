@@ -1,5 +1,5 @@
 /* eslint-env node, browser */
-import {createHash} from "sha1-uint8array";
+import { createHash } from 'sha1-uint8array'
 
 import { toHex } from './toHex.js'
 

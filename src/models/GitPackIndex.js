@@ -1,5 +1,3 @@
-import {CRC} from './crc';
-
 import { InternalError } from '../errors/InternalError.js'
 import { GitObject } from '../models/GitObject'
 import { BufferCursor } from '../utils/BufferCursor.js'
@@ -7,6 +5,8 @@ import { applyDelta } from '../utils/applyDelta.js'
 import { listpack } from '../utils/git-list-pack.js'
 import { inflate } from '../utils/inflate.js'
 import { shasum } from '../utils/shasum.js'
+
+import { CRC } from './crc'
 
 function decodeVarInt(reader) {
   const bytes = []
@@ -155,7 +155,7 @@ export class GitPackIndex {
       const end =
         i + 1 === offsetArray.length ? pack.byteLength - 20 : offsetArray[i + 1]
       const o = offsetToObject[start]
-      const crc = new CRC().update(pack.slice(start, end)).digest('raw');
+      const crc = new CRC().update(pack.slice(start, end)).digest('raw')
       o.end = end
       o.crc = crc
     }

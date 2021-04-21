@@ -1,4 +1,4 @@
-import {createHash} from "sha1-uint8array";
+import { createHash } from 'sha1-uint8array'
 
 import { types } from '../commands/types.js'
 import { _readObject as readObject } from '../storage/readObject.js'
@@ -21,7 +21,7 @@ export async function _pack({
   gitdir = join(dir, '.git'),
   oids,
 }) {
-  const hash = createHash();
+  const hash = createHash()
   const outputStream = []
   function write(chunk, enc) {
     const buff = Buffer.from(chunk, enc)
