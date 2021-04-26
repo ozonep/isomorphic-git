@@ -1,23 +1,20 @@
 {
-  "name": "isomorphic-git",
-  "version": "0.0.0-development",
+  "name": "ozonep-isomorphic-git",
+  "version": "0.0.4",
   "description": "A pure JavaScript reimplementation of git for node and browsers",
-  "typings": "./index.d.ts",
-  "main": "./index.js",
-  "module": "./index.js",
-  "unpkg": "./index.umd.min.js",
-  "bin": {
-    "isogit": "./cli.cjs"
-  },
+  "typings": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "browser": "./dist/index.js",
   "sideEffects": false,
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
     "start": "nps",
     "format": "eslint --fix ./src",
     "prettify": "prettier --write ./src",
-    "build": "npm run build.webpack && npm run build.treeshake",
+    "build": "npm run build.rollup && npm run build.typings && npm run build.webpack",
     "build.rollup": "rollup -c --no-treeshake",
     "build.typings": "tsc -p declaration.tsconfig.json && cp index.d.ts index.umd.min.d.ts",
     "build.webpack": "webpack",
@@ -38,16 +35,8 @@
   },
   "homepage": "https://isomorphic-git.org/",
   "files": [
-    "cli.cjs",
-    "browser-tests.json",
-    "http/*",
-    "index.cjs",
-    "index.d.ts",
-    "index.js",
-    "index.umd.min.js",
-    "index.umd.min.d.ts",
-    "index.umd.min.js.map",
-    "size_report.html"
+    "dist/*",
+    "http/*"
   ],
   "dependencies": {
     "async-lock": "^1.2.8",
@@ -66,8 +55,8 @@
     "agadoo": "2.0.0",
     "buffer-lite": "^1.0.0",
     "diff-lines": "1.1.1",
-    "eslint": "^7.24.0",
-    "eslint-config-prettier": "^8.2.0",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-config-prettier-standard": "^4.0.1",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
@@ -84,7 +73,7 @@
     "rollup": "^2.45.2",
     "standard": "16.0.3",
     "typescript": "4.2.4",
-    "webpack": "^5.34.0",
+    "webpack": "^5.35.1",
     "webpack-cli": "^4.6.0"
   }
 }

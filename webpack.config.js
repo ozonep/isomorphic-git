@@ -9,8 +9,7 @@ module.exports = [
     target: ['webworker', 'es2020'],
     entry: {
       index: './src/index.js',
-      'internal-apis': './src/internal-apis.js',
-      'http': './src/http/index.js',
+      'internal-apis': './src/internal-apis.js'
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
