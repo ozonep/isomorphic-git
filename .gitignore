@@ -4,6 +4,7 @@
 
 # Dist
 /http
+/dist
 /index.cjs
 /index.d.ts
 /index.js
