@@ -1,8 +1,5 @@
 export function toHex(buffer) {
-  let hex = ''
-  for (const byte of new Uint8Array(buffer)) {
-    if (byte < 16) hex += '0'
-    hex += byte.toString(16)
-  }
-  return hex
+  const hashArray = Array.from(new Uint8Array(buffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+  return hashHex
 }
