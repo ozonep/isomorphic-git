@@ -6,7 +6,6 @@ import pkg from './package.json'
 const external = [
   'fs',
   'path',
-  'buffer',
   'crypto',
   'stream',
   ...Object.keys(pkg.dependencies),
@@ -66,7 +65,7 @@ const pkgify = (input, output, name) => {
 }
 
 export default [
-  ecmaConfig('index.js', 'index.js'),
-  ecmaConfig('internal-apis.js', 'internal-apis.js'),
+  ecmaConfig('index.js', './dist/index.js'),
+  ecmaConfig('internal-apis.js', './dist/internal-apis.js'),
   ...pkgify('http', 'http', 'GitHttp'),
 ]
