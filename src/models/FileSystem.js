@@ -7,20 +7,16 @@ import { dirname } from '../utils/dirname.js'
 export class FileSystem {
   constructor(fs) {
     if (typeof fs._original_unwrapped_fs !== 'undefined') return fs
-
-    const promises = Object.getOwnPropertyDescriptor(fs, 'promises')
-    if (promises && promises.enumerable) {
-      this._readFile = fs.promises.readFile.bind(fs.promises)
-      this._writeFile = fs.promises.writeFile.bind(fs.promises)
-      this._mkdir = fs.promises.mkdir.bind(fs.promises)
-      this._rmdir = fs.promises.rmdir.bind(fs.promises)
-      this._unlink = fs.promises.unlink.bind(fs.promises)
-      this._stat = fs.promises.stat.bind(fs.promises)
-      this._lstat = fs.promises.lstat.bind(fs.promises)
-      this._readdir = fs.promises.readdir.bind(fs.promises)
-      this._readlink = fs.promises.readlink.bind(fs.promises)
-      this._symlink = fs.promises.symlink.bind(fs.promises)
-    }
+    this._readFile = fs.promises.readFile.bind(fs.promises)
+    this._writeFile = fs.promises.writeFile.bind(fs.promises)
+    this._mkdir = fs.promises.mkdir.bind(fs.promises)
+    this._rmdir = fs.promises.rmdir.bind(fs.promises)
+    this._unlink = fs.promises.unlink.bind(fs.promises)
+    this._stat = fs.promises.stat.bind(fs.promises)
+    this._lstat = fs.promises.lstat.bind(fs.promises)
+    this._readdir = fs.promises.readdir.bind(fs.promises)
+    this._readlink = fs.promises.readlink.bind(fs.promises)
+    this._symlink = fs.promises.symlink.bind(fs.promises)
     this._original_unwrapped_fs = fs
   }
 
