@@ -60,14 +60,14 @@ export async function _readObject({
   /* eslint-disable no-fallthrough */
   switch (result.format) {
     case 'deflated': {
-      result.object = Buffer.from(await inflate(result.object))
+      result.object = Buffer.from(inflate(result.object))
       result.format = 'wrapped'
     }
     case 'wrapped': {
       if (format === 'wrapped' && result.format === 'wrapped') {
         return result
       }
-      const sha = await shasum(result.object)
+      const sha = shasum(result.object)
       if (sha !== oid) {
         throw new InternalError(
           `SHA check failed! Expected ${oid}, computed ${sha}`

@@ -1,7 +1,7 @@
 import { GitObject } from '../models/GitObject.js'
 import { shasum } from '../utils/shasum.js'
 
-export async function hashObject({
+export function hashObject({
   type,
   object,
   format = 'content',
@@ -11,7 +11,7 @@ export async function hashObject({
     if (format !== 'wrapped') {
       object = GitObject.wrap({ type, object })
     }
-    oid = await shasum(object)
+    oid = shasum(object)
   }
   return { oid, object }
 }

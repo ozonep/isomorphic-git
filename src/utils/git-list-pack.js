@@ -1,7 +1,7 @@
 // My version of git-list-pack - roughly 15x faster than the original
 // It's used slightly differently - instead of returning a through stream it wraps a stream.
 // (I tried to make it API identical, but that ended up being 2x slower than this version.)
-import pako from 'pako'
+import {Inflate} from '@progress/pako-esm';
 
 import { InternalError } from '../errors/InternalError.js'
 import { StreamReader } from '../utils/StreamReader.js'
@@ -28,7 +28,7 @@ export async function listpack(stream, onData) {
   while (!reader.eof() && numObjects--) {
     const offset = reader.tell()
     const { type, length, ofs, reference } = await parseHeader(reader)
-    const inflator = new pako.Inflate()
+    const inflator = new Inflate()
     while (!inflator.result) {
       const chunk = await reader.chunk()
       if (reader.ended) break

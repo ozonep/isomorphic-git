@@ -5,8 +5,7 @@ import { applyDelta } from '../utils/applyDelta.js'
 import { listpack } from '../utils/git-list-pack.js'
 import { inflate } from '../utils/inflate.js'
 import { shasum } from '../utils/shasum.js'
-
-import { CRC } from './crc'
+import { CRC } from './crc';
 
 function decodeVarInt(reader) {
   const bytes = []
@@ -195,7 +194,7 @@ export class GitPackIndex {
         p.externalReadDepth = 0
         const { type, object } = await p.readSlice({ start: offset })
         objectsByDepth[p.readDepth] += 1
-        const oid = await shasum(GitObject.wrap({ type, object }))
+        const oid = shasum(GitObject.wrap({ type, object }))
         o.oid = oid
         hashes.push(oid)
         offsets.set(oid, offset)
@@ -248,7 +247,7 @@ export class GitPackIndex {
     write(this.packfileSha, 'hex')
     // Write out shasum
     const totalBuffer = Buffer.concat(buffers)
-    const sha = await shasum(totalBuffer)
+    const sha = shasum(totalBuffer)
     const shaBuffer = Buffer.alloc(20)
     shaBuffer.write(sha, 'hex')
     return Buffer.concat([totalBuffer, shaBuffer])
@@ -326,7 +325,7 @@ export class GitPackIndex {
     }
     // Handle undeltified objects
     const buffer = raw.slice(reader.tell())
-    object = Buffer.from(await inflate(buffer))
+    object = Buffer.from(inflate(buffer))
     // Assert that the object length is as expected.
     if (object.byteLength !== length) {
       throw new InternalError(

@@ -98,7 +98,7 @@ export async function status({
         return indexEntry.oid
       } else {
         const object = await fs.read(join(dir, filepath))
-        const workdirOid = await hashObject({
+        const workdirOid = hashObject({
           gitdir,
           type: 'blob',
           object,

@@ -44,7 +44,7 @@ export async function hashBlob({ object }) {
     }
 
     const type = 'blob'
-    const { oid, object: _object } = await hashObject({
+    const { oid, object: _object } = hashObject({
       type: 'blob',
       format: 'content',
       object,

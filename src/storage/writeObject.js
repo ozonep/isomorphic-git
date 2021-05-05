@@ -16,8 +16,8 @@ export async function _writeObject({
     if (format !== 'wrapped') {
       object = GitObject.wrap({ type, object })
     }
-    oid = await shasum(object)
-    object = Buffer.from(await deflate(object))
+    oid = shasum(object)
+    object = Buffer.from(deflate(object))
   }
   if (!dryRun) {
     await writeObjectLoose({ fs, gitdir, object, format: 'deflated', oid })

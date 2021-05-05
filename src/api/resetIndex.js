@@ -73,7 +73,7 @@ export async function resetIndex({
     const object = dir && (await fs.read(join(dir, filepath)))
     if (object) {
       // ... and has the same hash as the desired state...
-      workdirOid = await hashObject({
+      workdirOid = hashObject({
         gitdir,
         type: 'blob',
         object,

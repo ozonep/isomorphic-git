@@ -52,7 +52,7 @@ export async function _pack({
       length = length >>> 7
     }
     // Lastly, we can compress and write the object.
-    write(Buffer.from(await deflate(object)))
+    write(Buffer.from(deflate(object)))
   }
   write('PACK')
   write('00000002', 'hex')

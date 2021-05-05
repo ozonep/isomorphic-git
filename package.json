@@ -1,7 +1,8 @@
 {
   "name": "ozonep-isomorphic-git",
-  "version": "0.0.4",
+  "version": "0.3.0",
   "description": "A pure JavaScript reimplementation of git for node and browsers",
+  "type": "module",
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -14,9 +15,9 @@
     "start": "nps",
     "format": "eslint --fix ./src",
     "prettify": "prettier --write ./src",
-    "build": "npm run build.rollup && npm run build.typings && npm run build.webpack",
+    "build": "npm run build.rollup && npm run build.typings",
     "build.rollup": "rollup -c --no-treeshake",
-    "build.typings": "tsc -p declaration.tsconfig.json && cp index.d.ts index.umd.min.d.ts",
+    "build.typings": "tsc -p declaration.tsconfig.json",
     "build.webpack": "webpack",
     "build.treeshake": "agadoo"
   },
@@ -39,21 +40,21 @@
     "http/*"
   ],
   "dependencies": {
-    "async-lock": "^1.2.8",
+    "@progress/pako-esm": "^1.0.1",
+    "async-lock": "^1.3.0",
     "clean-git-ref": "^2.0.1",
     "diff3": "0.0.3",
+    "fflate": "^0.6.10",
     "ignore": "^5.1.8",
-    "pako": "^2.0.3",
-    "readable-stream": "^3.6.0",
-    "sha1-uint8array": "^0.10.0"
+    "sha1-uint8array": "^0.10.1"
   },
   "devDependencies": {
     "@cerner/duplicate-package-checker-webpack-plugin": "2.1.0",
     "@isomorphic-git/cors-proxy": "2.7.0",
     "@isomorphic-git/pgp-plugin": "0.0.7",
-    "@types/node": "14.14.41",
+    "@types/node": "^15.0.2",
     "agadoo": "2.0.0",
-    "buffer-lite": "^1.0.0",
+    "buffer-lite-fixed": "^2.0.0",
     "diff-lines": "1.1.1",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
@@ -70,10 +71,10 @@
     "prettier-config-standard": "^4.0.0",
     "pretty-format": "26.6.2",
     "process": "0.11.10",
-    "rollup": "^2.45.2",
+    "rollup": "^2.47.0",
     "standard": "16.0.3",
     "typescript": "4.2.4",
-    "webpack": "^5.35.1",
+    "webpack": "^5.36.2",
     "webpack-cli": "^4.6.0"
   }
 }

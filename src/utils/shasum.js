@@ -1,7 +1,6 @@
 /* eslint-env browser */
-import { toHex } from './toHex.js'
+import {createHash} from "sha1-uint8array";
 
-export async function shasum(buffer) {
-  const hash = await crypto.subtle.digest('SHA-1', buffer)
-  return toHex(hash)
+export function shasum(buffer) {
+  return createHash().update(buffer).digest("hex");
 }

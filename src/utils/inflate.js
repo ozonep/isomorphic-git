@@ -1,11 +1,6 @@
 /* eslint-env node, browser */
-/* global DecompressionStream */
-export async function inflate(buffer) {
-  return browserInflate(buffer)
-}
+import {decompressSync} from 'fflate';
 
-async function browserInflate(buffer) {
-  const ds = new DecompressionStream('deflate')
-  const d = new Blob([buffer]).stream().pipeThrough(ds)
-  return new Uint8Array(await new Response(d).arrayBuffer())
+export function inflate(buffer) {
+  return decompressSync(buffer)
 }

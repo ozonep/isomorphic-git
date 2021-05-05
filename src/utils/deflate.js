@@ -1,11 +1,6 @@
-/* eslint-env node, browser */
-/* global CompressionStream */
-export async function deflate(buffer) {
-  return browserDeflate(buffer)
-}
+/* eslint-env browser */
+import {zlibSync} from 'fflate';
 
-async function browserDeflate(buffer) {
-  const cs = new CompressionStream('deflate')
-  const c = new Blob([buffer]).stream().pipeThrough(cs)
-  return new Uint8Array(await new Response(c).arrayBuffer())
+export function deflate(buffer) {
+  return zlibSync(buffer, {})
 }

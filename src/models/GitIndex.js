@@ -52,7 +52,7 @@ export class GitIndex {
 
   static async fromBuffer(buffer) {
     // Verify shasum
-    const shaComputed = await shasum(buffer.slice(0, -20))
+    const shaComputed = shasum(buffer.slice(0, -20))
     const shaClaimed = buffer.slice(-20).toString('hex')
     if (shaClaimed !== shaComputed) {
       throw new InternalError(
@@ -220,7 +220,7 @@ export class GitIndex {
       })
     )
     const main = Buffer.concat([header, body])
-    const sum = await shasum(main)
+    const sum = shasum(main)
     return Buffer.concat([main, Buffer.from(sum, 'hex')])
   }
 }
